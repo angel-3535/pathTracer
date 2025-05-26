@@ -22,6 +22,9 @@ using ivec4 = glm::ivec4;
 using vec3 = glm::vec3;
 using ivec3 = glm::ivec3;
 
+using point3 = glm::vec3;
+using ipoint3 = glm::ivec3;
+
 using vec2 = glm::vec2;
 using ivec2 = glm::ivec2;
 
