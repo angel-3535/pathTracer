@@ -9,7 +9,7 @@ public:
   const point3& origin() const {return orig;}
   const vec3& direction() const {return dir;}
 
-  inline point3 at(f32 t){
+  inline point3 at(f64 t) const {
     return orig + t*dir;
   }
 
