@@ -1,6 +1,6 @@
 #pragma once
 #include "hittable.h"
-#include "types.hpp"
+#include "material.h"
 #include "util.hpp"
 #include <color.h>
 
@@ -88,8 +88,11 @@ private:
     }
     HitRecord rec;
     if (world.Hit(r, Interval(0.001, infinity), rec)) {
-      vec3 direction = rec.normal + RandomUnitv3();
-      return 0.5 * RayColor(Ray(rec.p, direction),depth-1, world);
+      Ray scattered;
+      color attenuation;
+      if(rec.mat->scatter(r, rec,attenuation,scattered))
+        return attenuation * RayColor(scattered, depth-1, world);
+      return color(0);
     }
 
     vec3 unit_dir = glm::normalize(r.direction());

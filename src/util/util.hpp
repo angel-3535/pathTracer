@@ -1,5 +1,6 @@
 #pragma once
 
+#include "glm/geometric.hpp"
 #include "glm/trigonometric.hpp"
 #include <cmath>
 #include <cstdlib>
@@ -19,14 +20,14 @@ inline f64 Randomf64() { return std::rand() / (RAND_MAX + 1.0); }
 inline f64 Randomf64(f64 min, f64 max) {
   return min + (max - min) * Randomf64();
 }
-static vec3 Randomv3(){
+inline static vec3 Randomv3(){
   return vec3(Randomf64(),Randomf64(),Randomf64());
 }
-static vec3 Randomv3(f64 min, f64 max){
+inline static vec3 Randomv3(f64 min, f64 max){
   return vec3(Randomf64(min,max),Randomf64(min,max),Randomf64(min,max));
 }
 
-static vec3 RandomUnitv3(){
+inline vec3 RandomUnitv3(){
   while (true) {
     vec3 p = Randomv3(-1,1);
     f64 lensq  = glm::length2(p);
@@ -35,7 +36,7 @@ static vec3 RandomUnitv3(){
   }
 }
 
-static vec3 RandomOnHemisphere(const vec3& normal){
+inline vec3 RandomOnHemisphere(const vec3& normal){
   vec3 on_unit_sphere = RandomUnitv3();
   if(dot(on_unit_sphere, normal)>0.0){
     return on_unit_sphere;
@@ -43,6 +44,12 @@ static vec3 RandomOnHemisphere(const vec3& normal){
     return -on_unit_sphere;
   }
 }
+
+bool Isv3NearZero(const vec3& v){
+  f64 s= 1e-8;
+  return (std::fabs(v[0] < s) &&std::fabs(v[1] < s) &&std::fabs(v[2] < s) );
+}
+
 
 #include <interval.h>
 #include <ray.h>

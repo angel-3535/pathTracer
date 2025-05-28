@@ -3,10 +3,13 @@
 #include "interval.h"
 #include <util.hpp>
 
+class Material;
+
 class HitRecord{
   public:
     point3 p;
     vec3 normal;
+    std::shared_ptr<Material> mat;
     f64 t;
     bool front_face;
 
