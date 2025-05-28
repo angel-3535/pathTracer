@@ -50,7 +50,7 @@ private:
     image_height = i32(image_width / aspect_ratio);
     image_height = (image_height < 1) ? 1 : image_height;
     pixel_samples_scale = 1.0 / samples_per_pixel;
-    center = point3(0);
+    center = point3(0,0,1.0);
 
     // viewport dimensions
     f64 focal_length{1.0};
@@ -89,7 +89,7 @@ private:
     }
     HitRecord rec;
     if (world.Hit(r, Interval(0.001, infinity), rec)) {
-      vec3 direction = RandomOnHemisphere(rec.normal);
+      vec3 direction = rec.normal + RandomUnitv3();
       return 0.5 * RayColor(Ray(rec.p, direction),depth-1, world);
     }
 
