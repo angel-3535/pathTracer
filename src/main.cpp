@@ -1,12 +1,6 @@
 #include "camera.h"
-#include "glm/detail/type_vec3.hpp"
-#include "glm/geometric.hpp"
-#include "hittable.h"
 #include "hittable_list.h"
-#include "interval.h"
 #include "sphere.h"
-#include "types.hpp"
-#include <memory>
 #include <util/util.hpp>
 
 
@@ -22,6 +16,7 @@ int main(int argc, char *argv[]) {
   // cam.aspect_ratio = 16.0 / 9.0;
   cam.aspect_ratio = 1.0;
   cam.image_width = 800;
+  cam.samples_per_pixel = 10;
 
   cam.render(world);
   return 0;

@@ -19,6 +19,5 @@ inline f64 Randomf64(f64 min, f64 max) {
   return min + (max - min) * Randomf64();
 }
 
-#include <color.h>
-#include <interval.h>
+#include "interval.h"
 #include <ray.h>
