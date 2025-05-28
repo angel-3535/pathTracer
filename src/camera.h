@@ -2,7 +2,6 @@
 #include "hittable.h"
 #include "types.hpp"
 #include "util.hpp"
-#include <util.h>
 #include <color.h>
 
 
