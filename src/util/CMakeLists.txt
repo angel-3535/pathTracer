@@ -5,4 +5,5 @@ target_sources(${PROJECT_NAME}
   FILES
     types.hpp
     util.hpp
+    v3util.hpp
 )

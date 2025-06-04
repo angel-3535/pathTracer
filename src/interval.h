@@ -1,5 +1,5 @@
 #pragma once
-#include <util.hpp>
+#include <util/util.hpp>
 
 class Interval {
 public:

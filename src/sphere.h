@@ -4,7 +4,7 @@
 #include "hittable.h"
 #include "interval.h"
 #include <memory>
-#include <util.hpp>
+#include <util/util.hpp>
 
 class Sphere : public Hittable {
 public:

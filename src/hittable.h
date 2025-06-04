@@ -1,7 +1,7 @@
 #pragma once
 
+#include "util/util.hpp"
 #include "interval.h"
-#include <util.hpp>
 
 class Material;
 

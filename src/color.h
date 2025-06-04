@@ -1,7 +1,7 @@
 #pragma once
 
 #include <random>
-#include <util.hpp>
+#include <util/util.hpp>
 
 inline f64 LinearToGamma(f64 linear_component){
   if (linear_component > 0) {

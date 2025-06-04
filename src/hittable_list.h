@@ -2,7 +2,7 @@
 
 #include "hittable.h"
 #include "interval.h"
-#include <util.hpp>
+#include <util/util.hpp>
 #include <vector>
 
 class HittableList : public Hittable {
