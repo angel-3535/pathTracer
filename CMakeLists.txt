@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 4.0)
 project(pathTracer)
 
-find_package( OpenGL REQUIRED )
-
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -21,7 +19,6 @@ add_executable( ${PROJECT_NAME} ${SRC_FILES} )
 add_subdirectory( src/util )
 
 target_link_libraries(${PROJECT_NAME}  glm::glm)
-target_link_libraries(${PROJECT_NAME}  OpenGL::GL)
 
 #==========================================
 
