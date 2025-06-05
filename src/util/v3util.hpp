@@ -2,6 +2,7 @@
 
 #include "glm/geometric.hpp"
 #include "util.hpp"
+#include "util/types.hpp"
 #include <glm/gtx/norm.hpp>
 
 using glm::reflect;
@@ -45,5 +46,9 @@ inline vec3 RandomInUnitDisk(){
     if(glm::length2(p) < 1)
       return p;
   }
+}
+
+inline color RandomColor(){
+  return vec3(Randomf64(0,1),Randomf64(0,1),Randomf64(0,1));
 }
 
