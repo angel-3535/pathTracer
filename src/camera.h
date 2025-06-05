@@ -4,6 +4,7 @@
 #include "material.h"
 #include "util/types.hpp"
 #include "util/util.hpp"
+#include "util/v3util.hpp"
 #include <cmath>
 #include <color.h>
 
@@ -19,6 +20,9 @@ public:
   point3 lookat = point3(0, 0, -1);
   vec3 vup = vec3(0, 1, 0);
 
+  f64 defocus_angle{0};
+  f64 focus_dist{10};
+
 private:
   i32 image_height;
   f64 pixel_samples_scale;
@@ -27,6 +31,9 @@ private:
   vec3 pixel_delta_u;
   vec3 pixel_delta_v;
   vec3 u, v, w;
+
+  vec3 defocus_disk_u;
+  vec3 defocus_disk_v;
 
 public:
   Camera() = default;
@@ -60,10 +67,9 @@ private:
     center = lookfrom;
 
     // viewport dimensions
-    f64 focal_length{glm::length(lookfrom - lookat)};
     f64 theta{DegreeToRadians(vfov)};
     f64 h{std::tan(theta / 2.0)};
-    f64 viewport_height{2.0 * h * focal_length};
+    f64 viewport_height{2.0 * h * focus_dist};
     f64 viewport_width{viewport_height * (static_cast<f64>(image_width) /
                                           static_cast<f64>(image_height))};
 
@@ -77,9 +83,13 @@ private:
     pixel_delta_u = viewport_u / static_cast<f64>(image_width);
     pixel_delta_v = viewport_v / static_cast<f64>(image_height);
 
-    vec3 viewport_upper_left = center -(focal_length * w) -
+    vec3 viewport_upper_left = center -(focus_dist * w) -
                                (viewport_u / 2.0) - (viewport_v / 2.0);
     pixel00_loc = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
+
+    f64 defocus_radius = focus_dist * std::tan((DegreeToRadians(defocus_angle / 2.0)));
+    defocus_disk_u =  u * defocus_radius;
+    defocus_disk_v =  v * defocus_radius;
   }
 
   Ray GetRay(i32 i, i32 j) const {
@@ -87,12 +97,17 @@ private:
     point3 pixel_sample = pixel00_loc + ((i + offset.x) * pixel_delta_u) +
                           ((j + offset.y) * pixel_delta_v);
 
-    point3 ray_origin = center;
+    point3 ray_origin = (defocus_angle <= 0) ? center: DefocusDiskSample();
     vec3 ray_direction = pixel_sample - ray_origin;
     return Ray(ray_origin, ray_direction);
   }
   vec3 SampleSquare() const {
     return vec3(Randomf64() - 0.5, Randomf64() - 0.5, 0);
+  }
+
+  point3 DefocusDiskSample() const {
+    vec3 p = RandomInUnitDisk();
+    return center + (p.x * defocus_disk_u) + (p.y * defocus_disk_v);
   }
 
   color RayColor(const Ray &r, i32 depth, const Hittable &world) const {

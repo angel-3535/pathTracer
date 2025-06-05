@@ -37,3 +37,13 @@ inline bool Isv3NearZero(const vec3 &v) {
   f64 s = 1e-8;
   return (std::fabs(v[0] < s) && std::fabs(v[1] < s) && std::fabs(v[2] < s));
 }
+
+
+inline vec3 RandomInUnitDisk(){
+  while (true) {
+    vec3 p = vec3(Randomf64(-1,1),Randomf64(-1,1),0);
+    if(glm::length2(p) < 1)
+      return p;
+  }
+}
+

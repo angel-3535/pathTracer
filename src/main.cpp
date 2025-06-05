@@ -11,6 +11,9 @@ int main(int argc, char *argv[]) {
   //World
   HittableList world;
   auto material_ground =  std::make_shared<Lambertian>(color(0.8,0.8,0));
+
+
+
   auto mate_red =         std::make_shared<Lambertian>(color(1.0,0.0,0.0));
   auto mate_green =       std::make_shared<Lambertian>(color(0.0,1.0,0.0));
   auto mate_blue =        std::make_shared<Lambertian>(color(0.0,0.0,1.0));
@@ -45,6 +48,10 @@ int main(int argc, char *argv[]) {
   cam.vfov = 65;
   cam.lookfrom = point3(-3,2,1);
   cam.lookat   = point3(0, 0, -1);
+
+
+  cam.defocus_angle = 0.6;
+  cam.focus_dist    = 10.0;
 
 
   cam.render(world);
